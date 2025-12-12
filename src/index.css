@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 220 20% 6%;
+    --foreground: 210 20% 92%;
+
+    --card: 220 18% 10%;
+    --card-foreground: 210 20% 92%;
+
+    --popover: 220 18% 10%;
+    --popover-foreground: 210 20% 92%;
+
+    --primary: 142 70% 45%;
+    --primary-foreground: 220 20% 6%;
+
+    --secondary: 220 15% 16%;
+    --secondary-foreground: 210 20% 85%;
+
+    --muted: 220 15% 14%;
+    --muted-foreground: 215 15% 55%;
+
+    --accent: 210 100% 50%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 142 70% 45%;
+
+    --radius: 0.5rem;
+
+    /* Trading specific */
+    --buy: 142 70% 45%;
+    --buy-glow: 142 80% 50%;
+    --sell: 0 72% 51%;
+    --sell-glow: 0 80% 55%;
+    --warning: 38 92% 50%;
+    --chart-grid: 220 15% 15%;
+    --chart-candle-up: 142 70% 45%;
+    --chart-candle-down: 0 72% 51%;
+
+    /* Glows and effects */
+    --glow-primary: 0 0 20px hsl(142 70% 45% / 0.3);
+    --glow-accent: 0 0 20px hsl(210 100% 50% / 0.3);
+    --glow-destructive: 0 0 20px hsl(0 72% 51% / 0.3);
+
+    --sidebar-background: 220 18% 8%;
+    --sidebar-foreground: 210 20% 92%;
+    --sidebar-primary: 142 70% 45%;
+    --sidebar-primary-foreground: 220 20% 6%;
+    --sidebar-accent: 220 15% 16%;
+    --sidebar-accent-foreground: 210 20% 92%;
+    --sidebar-border: 220 15% 18%;
+    --sidebar-ring: 142 70% 45%;
+  }
+
+  .dark {
+    --background: 220 20% 6%;
+    --foreground: 210 20% 92%;
+    --card: 220 18% 10%;
+    --card-foreground: 210 20% 92%;
+    --popover: 220 18% 10%;
+    --popover-foreground: 210 20% 92%;
+    --primary: 142 70% 45%;
+    --primary-foreground: 220 20% 6%;
+    --secondary: 220 15% 16%;
+    --secondary-foreground: 210 20% 85%;
+    --muted: 220 15% 14%;
+    --muted-foreground: 215 15% 55%;
+    --accent: 210 100% 50%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 142 70% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .glow-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  .glow-accent {
+    box-shadow: var(--glow-accent);
+  }
+
+  .glow-destructive {
+    box-shadow: var(--glow-destructive);
+  }
+
+  .stat-card {
+    @apply relative overflow-hidden rounded-lg border border-border bg-card p-4;
+  }
+
+  .stat-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-5;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, transparent 50%);
+  }
+
+  .trading-panel {
+    @apply bg-card border border-border rounded-lg overflow-hidden;
+  }
+
+  .trading-panel-header {
+    @apply px-4 py-3 border-b border-border bg-secondary/30 flex items-center justify-between;
+  }
+
+  .pulse-live {
+    @apply relative;
+  }
+
+  .pulse-live::after {
+    content: '';
+    @apply absolute -right-1 -top-1 w-2 h-2 rounded-full bg-primary;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
+
+  .data-row {
+    @apply flex justify-between items-center py-2 border-b border-border/50 last:border-0;
+  }
+
+  .price-up {
+    @apply text-[hsl(var(--buy))];
+  }
+
+  .price-down {
+    @apply text-[hsl(var(--sell))];
+  }
+
+  .btn-buy {
+    @apply bg-[hsl(var(--buy))] hover:bg-[hsl(var(--buy-glow))] text-[hsl(var(--background))] font-semibold;
+  }
+
+  .btn-sell {
+    @apply bg-[hsl(var(--sell))] hover:bg-[hsl(var(--sell-glow))] text-white font-semibold;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
